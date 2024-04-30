@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:prography
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+  h2:
+    console:
+      enabled: true
+  data:
+    web:
+      pageable:
+        default-page-size: 20
+        max-page-size: 2000
+        one-indexed-parameters: on
+springdoc:
+  packages-to-scan: com.example.prography_quest
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  api-docs:
+    path: /api
+    groups:
+      enabled: true
+  cache:
+    disabled: true
+  swagger-ui:
+    path: /ui
+    operations-sorter: method
