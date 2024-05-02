@@ -2,7 +2,7 @@
 # dockerfile image 생성 , 작동하는 법
 # 라즈베리파이 연동 서버
 
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
+          distribution: 'openjdk'
           java-version: '17'
 
       - name: Grant execute permission for gradlew
@@ -25,3 +25,9 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
+
+      - name: Build Docker & Push
+        run : |
+            docker login -v ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ secrets.DOCKER_REPO }}/  
+            docker push ${{ secrets.DOCKER_REPO }}/
