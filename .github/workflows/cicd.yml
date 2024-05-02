@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Docker & Push
         run : |
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker build -t ${{ secrets.DOCKER_REPO }}/spring-app .  
             docker push ${{ secrets.DOCKER_REPO }}/spring-app
 
@@ -38,7 +38,7 @@ jobs:
           host : ${{ secrets.HOST }}
           username : user
           key : ${{ secrets.SSH_KEY }}
-          port : ${{ secrets.SSH_POST }}
+          port : ${{ secrets.SSH_PORT }}
           script: | 
             cd app
             sudo rm concal.log
