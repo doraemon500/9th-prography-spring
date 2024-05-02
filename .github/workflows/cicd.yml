@@ -27,10 +27,10 @@ jobs:
         run: ./gradlew clean build
 
       - name: Build Docker & Push
-        run : |
-            docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t $DOCKER_REPO/spring-app .  
-            docker push $DOCKER_REPO/spring-app
+        run:
+          - docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
+          - docker build -t $DOCKER_REPO/spring-app .
+          - docker push $DOCKER_REPO/spring-app
 
       - name : Docker deploy
         uses : appleboy/ssh-action@master
