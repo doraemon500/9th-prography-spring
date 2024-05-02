@@ -28,9 +28,9 @@ jobs:
 
       - name: Build Docker & Push
         run : |
-            docker login -u ${{ variable.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t ${{ variable.DOCKER_REPO }}/spring-app .  
-            docker push ${{ variable.DOCKER_REPO }}/spring-app
+            docker login -u ${{ variables.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ variables.DOCKER_REPO }}/spring-app .  
+            docker push ${{ variables.DOCKER_REPO }}/spring-app
 
       - name : Docker deploy
         uses : appleboy/ssh-action@master
@@ -38,7 +38,7 @@ jobs:
           host : ${{ secrets.HOST }}
           username : user
           key : ${{ secrets.SSH_KEY }}
-          port : ${{ variable.SSH_PORT }}
+          port : ${{ variables.SSH_PORT }}
           script: | 
             cd app
             sudo rm concal.log
