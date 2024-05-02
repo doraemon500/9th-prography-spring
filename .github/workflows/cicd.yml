@@ -36,9 +36,9 @@ jobs:
         uses : appleboy/ssh-action@master
         with :
           host : ${{ secrets.HOST }}
-          username : user
+          username : ${{ secrets.USERNAME }}
           key : ${{ secrets.SSH_PRIVATE_KEY }}
-          port : ${{secrets.SSH_PORT}}
+          port : ${{ secrets.SSH_PORT }}
           script: | 
             cd app
             sudo rm concal.log
