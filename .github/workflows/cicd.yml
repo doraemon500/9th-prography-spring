@@ -38,7 +38,7 @@ jobs:
           host : ${{ secrets.HOST }}
           username : user
           key : ${{ secrets.SSH_PRIVATE_KEY }}
-          port : ${{ secrets.SSH_PORT }}
+          port : ${{secrets.SSH_PORT}}
           script: | 
             cd app
             sudo rm concal.log
