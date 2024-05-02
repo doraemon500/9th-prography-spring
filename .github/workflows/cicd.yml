@@ -17,7 +17,7 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: 'openjdk'
+          distribution: 'zulu'
           java-version: '17'
 
       - name: Grant execute permission for gradlew
@@ -29,5 +29,32 @@ jobs:
       - name: Build Docker & Push
         run : |
             docker login -v ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t ${{ secrets.DOCKER_REPO }}/  
-            docker push ${{ secrets.DOCKER_REPO }}/
+            docker build -t ${{ secrets.DOCKER_REPO }}/spring-app .  
+            docker push ${{ secrets.DOCKER_REPO }}/spring-app
+
+      - name : Docker deploy
+        uses : appleboy/ssh-action@master
+        with :
+          host : ${{ secrets.HOST }}
+          username : user
+          key : ${{ secrets.SSH_KEY }}
+          port : ${{ secrets.SSH_POST }}
+          script: | 
+            cd app
+            sudo rm concal.log
+            sudo docker rm - f $(docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/spring-app
+            docker-compose up -d
+            sudo docker logs -f spring-app &> concal.log &
+            docker image prune -f
+
+#current-time:
+#  needs: CI-CD
+#  runs-on: ubuntu-latest
+#  steps:
+#    - name : Get Current Time
+#      uses: josStorer/get-current-time@v2.0.2
+#      id: current-time
+#      with:
+#        format: YYYY-MM-DDTHH-mm-ss
+#        utcOffset: "+09:00"
