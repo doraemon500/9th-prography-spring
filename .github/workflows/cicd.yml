@@ -37,7 +37,7 @@ jobs:
         with :
           host : ${{ secrets.HOST }}
           username : ${{ secrets.USERNAME }}
-          password : ${{ secrets.SSH_PW }}
+          key : ${{ secrets.SSH_PRIVATE_KEY }}
           script: | 
             cd app
             sudo rm concal.log
@@ -47,6 +47,7 @@ jobs:
             sudo docker logs -f spring-app &> concal.log &
             docker image prune -f
 
+#password : ${{ secrets.SSH_PW }}
 #current-time:
 #  needs: CI-CD
 #  runs-on: ubuntu-latest
