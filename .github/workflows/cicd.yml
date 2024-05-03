@@ -33,7 +33,7 @@ jobs:
             docker push ${{ secrets.DOCKER_REPO }}/spring-app
 
       - name : Docker deploy
-        uses : appleboy/ssh-action@v0.1.9
+        uses : appleboy/ssh-action@v1.0.3
         with :
           host : ${{ secrets.HOST }}
           username : ${{ secrets.USERNAME }}
