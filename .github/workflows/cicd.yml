@@ -39,8 +39,14 @@ jobs:
           username : ${{ secrets.USERNAME }}
           key : ${{ secrets.SSH_PRIVATE_KEY }}
           port : ${{ secrets.SSH_PORT }}
-          script: | 
-            whoami
+          script: |
+            cd app
+            sudo rm concal.log
+            sudo docker rm - f $(docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/spring-app
+            docker-compose up -d
+            sudo docker logs -f spring-app &> concal.log &
+            docker image prune -f
 
 #password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }} host : ${{ secrets.HOST }} port : ${{ secrets.SSH_PORT }}
 #current-time:
