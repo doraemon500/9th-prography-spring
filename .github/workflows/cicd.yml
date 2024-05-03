@@ -38,10 +38,11 @@ jobs:
           host : 192.168.55.240
           username : ${{ secrets.USERNAME }}
           password : ${{ secrets.SSH_PW }}
+          port : ${{ secrets.SSH_PORT }}
           script: | 
             whoami
 
-#password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }} host : ${{ secrets.HOST }}
+#password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }} host : ${{ secrets.HOST }} port : ${{ secrets.SSH_PORT }}
 #current-time:
 #  needs: CI-CD
 #  runs-on: ubuntu-latest
