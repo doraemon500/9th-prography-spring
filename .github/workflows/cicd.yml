@@ -33,15 +33,15 @@ jobs:
             docker push ${{ secrets.DOCKER_REPO }}/spring-app
 
       - name : Docker deploy
-        uses : appleboy/ssh-action@v1.0.3
+        uses : appleboy/ssh-action@master
         with :
           host : ${{ secrets.HOST }}
           username : ${{ secrets.USERNAME }}
-          key : ${{ secrets.SSH_PRIVATE_KEY }}
+          password : ${{ secrets.SSH_PW }}
           script: | 
             whoami
 
-#password : ${{ secrets.SSH_PW }}
+#password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }}
 #current-time:
 #  needs: CI-CD
 #  runs-on: ubuntu-latest
