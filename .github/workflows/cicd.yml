@@ -45,7 +45,7 @@ jobs:
             sudo docker stop $(docker ps -q) && sudo docker rm $(docker ps -a -q) 
             sudo docker pull ${{ secrets.DOCKER_REPO }}/spring-app
             docker compose up -d
-            sudo docker logs -f spring-app &> concal.log &
+            sudo docker logs -f ${{ secrets.DOCKER_REPO }}/spring-app &> concal.log &
             docker image prune -f
 
 #password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }} host : ${{ secrets.HOST }} port : ${{ secrets.SSH_PORT }}
