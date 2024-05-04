@@ -45,12 +45,13 @@ jobs:
             sudo docker stop $(docker ps -q) && sudo docker rm $(docker ps -a -q) 
             sudo docker image rm ${{ secrets.DOCKER_REPO }}/spring-app
             sudo docker pull ${{ secrets.DOCKER_REPO }}/spring-app
-            docker compose up -d
+            sudo docker run -d jipsil/spring-app
             sudo docker logs -f spring-app &> concal.log &
             docker image prune -f
 
 #password : ${{ secrets.SSH_PW }} key : ${{ secrets.SSH_PRIVATE_KEY }} host : ${{ secrets.HOST }} port : ${{ secrets.SSH_PORT }}
 #'docker-compose' replaced with 'docker compose'
+#docker compose up -d
 
 #current-time:
 #  needs: CI-CD
