@@ -1,5 +1,5 @@
 # base image
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 # 빌드 파일의 경로
 ARG JAR_FILE=build/libs/*.jar
 # 빌드 파일을 app.jar 컨테이너로 복사
