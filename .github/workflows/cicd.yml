@@ -45,7 +45,7 @@ jobs:
             sudo docker stop $(docker ps -q) && sudo docker rm $(docker ps -a -q) 
             sudo docker image rm ${{ secrets.DOCKER_REPO }}/spring-app
             sudo docker pull ${{ secrets.DOCKER_REPO }}/spring-app
-            sudo docker run -d jipsil/spring-app
+            sudo docker run -p 50000:8080 -d ${{ secrets.DOCKER_REPO }}/spring-app
             sudo docker logs -f spring-app &> concal.log &
             docker image prune -f
 
