@@ -19,16 +19,6 @@ import java.util.List;
 public class RoomResponse {
     private Integer totalElements;
     private Integer totalPages;
-    private List<Data> roomList;
-
-    @Getter
-    @Builder
-    public static class Data {
-        private Integer id;
-        private String title;
-        private Integer hostId;
-        private Room_type roomType;
-        private Status status;
-    }
+    private List<Room> roomList;
 }
 

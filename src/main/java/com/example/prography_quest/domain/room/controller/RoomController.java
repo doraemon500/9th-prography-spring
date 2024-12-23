@@ -42,56 +42,34 @@ public class RoomController {
     public ResponseEntity<ApiResponse> createRoom(@RequestBody CreateRoomRequest createRoomRequest) {
         User user = userService.findUser(createRoomRequest.getUserId());
 
-        if (!user.getStatus().equals(Status.ACTIVE))
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (!user.getStatus().equals(Status.ACTIVE)) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         if (!userRoomService.findAllUserRoom(user).isEmpty())
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
 
-        Room room = Room.builder()
-                .title(createRoomRequest.getTitle())
-                .room_type(createRoomRequest.getRoomType())
-                .user(user)
-                .status(com.example.prography_quest.domain.room.domain.Status.WAIT)
-                .build();
+        Room room = Room.builder().title(createRoomRequest.getTitle()).room_type(createRoomRequest.getRoomType()).user(user).status(com.example.prography_quest.domain.room.domain.Status.WAIT).build();
         roomService.saveRoom(room);
-        userRoomService.saveUserRoom(UserRoom.builder()
-                .user(user)
-                .room(room)
-                .team(Team.RED)
-                .build());
+        userRoomService.saveUserRoom(UserRoom.builder().user(user).room(room).team(Team.RED).build());
         return ResponseEntity.ok().body(new ApiResponse<Void>().ok());
     }
 
     @CrossOrigin
-    @Operation(summary = "저장된 room들 지정된 만큼 반환 api")
+    @Operation(summary = "저장된 room들을 지정된 만큼 반환하는 api")
     @GetMapping("/room")
-    public ResponseEntity<ApiResponse> getRooms(
-            @Positive @RequestParam(name = "size") int size,
-            @Positive @RequestParam(name = "page") int page) {
+    public ResponseEntity<ApiResponse> getRooms(@Positive @RequestParam(name = "size") int size, @Positive @RequestParam(name = "page") int page) {
 
         Page<Room> roomPage = roomService.findRooms(page, size);
         List<Room> list = roomPage.getContent();
-        List<RoomResponse.Data> dlist = new ArrayList<>();
-        for (Room room : list) {
-            dlist.add(RoomResponse.Data.builder()
-                    .id(room.getId())
-                    .title(room.getTitle())
-                    .hostId(room.getHostId())
-                    .roomType(room.getRoomType())
-                    .status(room.getStatus())
-                    .build());
-        }
 
         RoomResponse roomResponse = RoomResponse.builder()
                 .totalElements((int) roomPage.getTotalElements())
                 .totalPages((int) roomPage.getTotalPages())
-                .roomList(dlist)
+                .roomList(list)
                 .build();
         return ResponseEntity.ok().body(new ApiResponse<RoomResponse>(roomResponse).ok());
     }
 
     @CrossOrigin
-    @Operation(summary = "저장된 room들 지정된 만큼 반환 api")
+    @Operation(summary = "특정 room을 반환하는 api")
     @GetMapping("/room/{roomId}")
     public ResponseEntity<ApiResponse> getRoom(@PathVariable int roomId) {
         return ResponseEntity.ok().body(new ApiResponse<Room>(roomService.findRoom(roomId)).ok());
@@ -118,28 +96,18 @@ public class RoomController {
         List<UserRoom> list = userRoomService.findAllUserRoom(room);
         if (!room.getStatus().equals(com.example.prography_quest.domain.room.domain.Status.WAIT))
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
-        if (!user.getStatus().equals(Status.ACTIVE))
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (!user.getStatus().equals(Status.ACTIVE)) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         if (!userRoomService.findAllUserRoom(user).isEmpty())
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
-        if (list.size() >= num)
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (list.size() >= num) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
 
         for (UserRoom userRoom : list)
             map.put(userRoom.getTeam(), map.getOrDefault(userRoom.getTeam(), 0) + 1);
 
         if (map.get(Team.RED) < num / 2) {
-            userRoomService.saveUserRoom(UserRoom.builder()
-                    .user(user)
-                    .room(room)
-                    .team(Team.RED)
-                    .build());
+            userRoomService.saveUserRoom(UserRoom.builder().user(user).room(room).team(Team.RED).build());
         } else if (map.get(Team.RED) == num / 2) {
-            userRoomService.saveUserRoom(UserRoom.builder()
-                    .user(user)
-                    .room(room)
-                    .team(Team.BLUE)
-                    .build());
+            userRoomService.saveUserRoom(UserRoom.builder().user(user).room(room).team(Team.BLUE).build());
         }
         return ResponseEntity.ok().body(new ApiResponse<Void>().ok());
     }
@@ -158,8 +126,7 @@ public class RoomController {
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         }
 
-        if (list.isEmpty())
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (list.isEmpty()) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         if (!room.getStatus().equals(com.example.prography_quest.domain.room.domain.Status.WAIT))
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
 
@@ -167,9 +134,7 @@ public class RoomController {
             list = userRoomService.findAllUserRoom(room);
             for (UserRoom userRoom : list)
                 userRoomService.deleteUserRoom(userRoom.getId());
-            roomService.updateRoom(UpdateRoomRequest.builder()
-                    .status(com.example.prography_quest.domain.room.domain.Status.FINISH)
-                    .build(), room);
+            roomService.updateRoom(UpdateRoomRequest.builder().status(com.example.prography_quest.domain.room.domain.Status.FINISH).build(), room);
             return ResponseEntity.ok().body(new ApiResponse<Void>().ok());
         }
         userRoomService.deleteUserRoom(outRoomRequest.getUserId());
@@ -189,19 +154,15 @@ public class RoomController {
         try {
             room = roomService.findRoom(roomId);
             user = userService.findUser(startRoomRequest.getUserId());
-            if (room.getRoomType().equals(Room_type.DOUBLE))
-                num = 4;
-            else if (room.getRoomType().equals(Room_type.SINGLE))
-                num = 2;
+            if (room.getRoomType().equals(Room_type.DOUBLE)) num = 4;
+            else if (room.getRoomType().equals(Room_type.SINGLE)) num = 2;
         } catch (Exception e) {
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         }
 
         List<UserRoom> list = userRoomService.findAllUserRoom(room);
-        if (user.getId() != room.getHostId())
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
-        if (list.size() != num)
-            return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (user.getId() != room.getHostId()) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
+        if (list.size() != num) return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
         if (!room.getStatus().equals(com.example.prography_quest.domain.room.domain.Status.WAIT))
             return ResponseEntity.ok().body(new ApiResponse<Void>().fail());
 
@@ -222,13 +183,9 @@ class thread extends Thread {
 
     public void run() {
         try {
-            roomService.updateRoom(UpdateRoomRequest.builder()
-                    .status(com.example.prography_quest.domain.room.domain.Status.PROGRESS)
-                    .build(), room);
+            roomService.updateRoom(UpdateRoomRequest.builder().status(com.example.prography_quest.domain.room.domain.Status.PROGRESS).build(), room);
             Thread.sleep(60000);
-            roomService.updateRoom(UpdateRoomRequest.builder()
-                    .status(com.example.prography_quest.domain.room.domain.Status.FINISH)
-                    .build(), room);
+            roomService.updateRoom(UpdateRoomRequest.builder().status(com.example.prography_quest.domain.room.domain.Status.FINISH).build(), room);
         } catch (Exception e) {
 
         }
