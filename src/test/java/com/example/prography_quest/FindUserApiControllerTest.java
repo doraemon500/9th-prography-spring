@@ -67,6 +67,6 @@ public class FindUserApiControllerTest {
         List<User> list = userService.findAllUser();
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result.totalElements").value(list.size()));
+                .andExpect(jsonPath("$.response.totalElements").value(list.size()));
     }
 }
