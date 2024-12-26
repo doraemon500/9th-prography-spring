@@ -1,34 +1,34 @@
 package com.example.prography_quest;
 
-import com.example.prography_quest.domain.init.dto.InitRequest;
-import com.example.prography_quest.domain.room.domain.Room;
-import com.example.prography_quest.domain.room.domain.Room_type;
-import com.example.prography_quest.domain.room.domain.Status;
-import com.example.prography_quest.domain.room.dto.CreateRoomRequest;
-import com.example.prography_quest.domain.room.dto.JoinOutRoomRequest;
-import com.example.prography_quest.domain.room.repository.RoomRepository;
-import com.example.prography_quest.domain.room.service.RoomService;
-import com.example.prography_quest.domain.userRoom.domain.Team;
-import com.example.prography_quest.domain.userRoom.domain.UserRoom;
-import com.example.prography_quest.domain.userRoom.dto.ChangeTeamRequest;
-import com.example.prography_quest.domain.userRoom.repository.UserRoomRepository;
-import com.example.prography_quest.global.common.response.ApiResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+//import com.example.prography_quest.domain.init.dto.InitRequest;
+//import com.example.prography_quest.domain.room.domain.Room;
+//import com.example.prography_quest.domain.room.domain.Room_type;
+//import com.example.prography_quest.domain.room.domain.Status;
+//import com.example.prography_quest.domain.room.dto.CreateRoomRequest;
+//import com.example.prography_quest.domain.room.dto.JoinOutRoomRequest;
+//import com.example.prography_quest.domain.room.repository.RoomRepository;
+//import com.example.prography_quest.domain.room.service.RoomService;
+//import com.example.prography_quest.domain.userRoom.domain.Team;
+//import com.example.prography_quest.domain.userRoom.domain.UserRoom;
+//import com.example.prography_quest.domain.userRoom.dto.ChangeTeamRequest;
+//import com.example.prography_quest.domain.userRoom.repository.UserRoomRepository;
+//import com.example.prography_quest.global.common.response.ApiResponse;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.junit.jupiter.api.DisplayName;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.http.MediaType;
+//import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.ResultActions;
+//
+//import java.util.HashMap;
+//import java.util.List;
+//
+//import static org.assertj.core.api.Assertions.assertThat;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 //@SpringBootTest
 //@AutoConfigureMockMvc
