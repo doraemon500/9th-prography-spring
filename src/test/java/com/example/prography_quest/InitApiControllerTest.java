@@ -3,6 +3,7 @@ package com.example.prography_quest;
 import com.example.prography_quest.domain.init.dto.InitRequest;
 import com.example.prography_quest.domain.user.domain.User;
 import com.example.prography_quest.domain.user.service.UserService;
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +42,7 @@ public class InitApiControllerTest {
     @Test
     public void checkHealth() throws Exception {
         final String url = "/health";
-        ApiResponse<Void> response = new ApiResponse<Void>().ok();
+        ApiResponse<Void> response = new ApiResponse<Void>().ok(ExceptionCode.OK);
 
         final ResultActions resultActions = mockMvc.perform(get(url));
 
@@ -55,7 +56,7 @@ public class InitApiControllerTest {
     @Test
     public void checkInit() throws Exception {
         final String url = "/init";
-        ApiResponse<Void> response = new ApiResponse<Void>().ok();
+        ApiResponse<Void> response = new ApiResponse<Void>().ok(ExceptionCode.OK);
         InitRequest request = InitRequest.builder()
                 .seed(40)
                 .quantity(50)

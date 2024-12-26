@@ -1,10 +1,6 @@
 package com.example.prography_quest.domain.room.dto;
 
-import com.example.prography_quest.domain.init.dto.FakerApiResponse;
 import com.example.prography_quest.domain.room.domain.Room;
-import com.example.prography_quest.domain.room.domain.Room_type;
-import com.example.prography_quest.domain.room.domain.Status;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

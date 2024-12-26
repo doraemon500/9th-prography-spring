@@ -4,6 +4,7 @@ import com.example.prography_quest.domain.init.dto.InitRequest;
 import com.example.prography_quest.domain.user.domain.User;
 import com.example.prography_quest.domain.user.dto.UserResponse;
 import com.example.prography_quest.domain.user.service.UserService;
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +45,7 @@ public class FindUserApiControllerTest {
     @Test
     public void findUsers() throws Exception {
         String url = "/init";
-        ApiResponse<Void> response = new ApiResponse<Void>().ok();
+        ApiResponse<Void> response = new ApiResponse<Void>().ok(ExceptionCode.OK);
         InitRequest request = InitRequest.builder()
                 .seed(40)
                 .quantity(10)

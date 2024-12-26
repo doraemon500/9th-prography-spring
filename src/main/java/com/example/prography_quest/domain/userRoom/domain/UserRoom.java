@@ -1,7 +1,6 @@
 package com.example.prography_quest.domain.userRoom.domain;
 
 import com.example.prography_quest.domain.room.domain.Room;
-import com.example.prography_quest.domain.room.dto.UpdateRoomRequest;
 import com.example.prography_quest.domain.user.domain.User;
 import com.example.prography_quest.domain.userRoom.dto.UpdateTeamRequest;
 import jakarta.persistence.*;

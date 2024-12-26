@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 @Getter
 @ToString
 public enum ExceptionCode {
+    //API 관련
+    OK(200, HttpStatus.OK, "API 요청이 성공했습니다."),
+    FAIL(201, HttpStatus.BAD_REQUEST, "불가능한 요청입니다."),
+    ERROR(500, HttpStatus.INTERNAL_SERVER_ERROR, "에러가 발생했습니다."),
+
     //권한 관련
     UN_AUTHENTICATION(1001, HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
     FORBIDDEN(1002, HttpStatus.FORBIDDEN, "권한이 없습니다."),

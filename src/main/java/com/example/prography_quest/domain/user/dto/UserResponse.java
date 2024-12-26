@@ -1,12 +1,11 @@
 package com.example.prography_quest.domain.user.dto;
 
-import com.example.prography_quest.domain.user.domain.Status;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.example.prography_quest.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.prography_quest.domain.user.domain.User;
+
 import java.util.List;
 
 @NoArgsConstructor

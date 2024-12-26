@@ -1,5 +1,6 @@
 package com.example.prography_quest.domain.health.controller;
 
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,6 +19,6 @@ public class HealthController {
     @Operation(summary = "헬스 체크")
     @GetMapping("/health")
     public ResponseEntity<ApiResponse> getHealth() {
-        return ResponseEntity.ok().body(new ApiResponse<Void>().ok());
+        return ResponseEntity.ok().body(new ApiResponse<Void>().ok(ExceptionCode.OK));
     }
 }

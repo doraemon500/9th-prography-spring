@@ -10,6 +10,7 @@ import com.example.prography_quest.domain.user.service.UserService;
 import com.example.prography_quest.domain.userRoom.domain.UserRoom;
 import com.example.prography_quest.domain.userRoom.repository.UserRoomRepository;
 import com.example.prography_quest.domain.userRoom.service.UserRoomService;
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -45,7 +46,7 @@ public class CreateRoomApiControllerTest {
     @Test
     public void createRooms() throws Exception {
         String url = "/init";
-        ApiResponse<Void> response = new ApiResponse<Void>().ok();
+        ApiResponse<Void> response = new ApiResponse<Void>().ok(ExceptionCode.OK);
         InitRequest request = InitRequest.builder()
                 .seed(40)
                 .quantity(10)

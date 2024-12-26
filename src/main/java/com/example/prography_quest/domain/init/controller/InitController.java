@@ -3,6 +3,7 @@ package com.example.prography_quest.domain.init.controller;
 import java.util.Collections;
 import java.util.List;
 
+import com.example.prography_quest.domain.init.domain.Faker;
 import com.example.prography_quest.domain.init.dto.FakerApiResponse;
 import com.example.prography_quest.domain.init.dto.InitRequest;
 import com.example.prography_quest.domain.room.service.RoomService;
@@ -10,6 +11,7 @@ import com.example.prography_quest.domain.user.domain.Status;
 import com.example.prography_quest.domain.user.domain.User;
 import com.example.prography_quest.domain.user.service.UserService;
 import com.example.prography_quest.domain.userRoom.service.UserRoomService;
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,28 +59,28 @@ public class InitController {
                 });
 
         FakerApiResponse fakerApiResponse = responseMono.block();
-        List<FakerApiResponse.Data> dlist = fakerApiResponse.getData();
-        Collections.sort(dlist, (a, b) -> {
+        List<Faker> list = fakerApiResponse.getData();
+        Collections.sort(list, (a, b) -> {
             return a.getId() - b.getId();
         });
 
-        for (FakerApiResponse.Data data : dlist) {
+        for (Faker faker : list) {
             Status status = null;
-            if (data.getId() <= 30)
+            if (faker.getId() <= 30)
                 status = Status.ACTIVE;
-            else if (data.getId() >= 31 && data.getId() <= 60)
+            else if (faker.getId() >= 31 && faker.getId() <= 60)
                 status = Status.WAIT;
-            else if (data.getId() >= 61)
+            else if (faker.getId() >= 61)
                 status = Status.NON_ACTIVE;
 
             userService.saveUser(User.builder()
-                    .fakerId(data.getId())
-                    .name(data.getUsername())
-                    .email(data.getEmail())
+                    .fakerId(faker.getId())
+                    .name(faker.getUsername())
+                    .email(faker.getEmail())
                     .status(status)
                     .build());
         }
 
-        return ResponseEntity.ok().body(new ApiResponse<Void>().ok());
+        return ResponseEntity.ok().body(new ApiResponse<Void>().ok(ExceptionCode.OK));
     }
 }

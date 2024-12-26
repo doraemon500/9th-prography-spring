@@ -1,6 +1,6 @@
 package com.example.prography_quest.domain.room.dto;
 
-import com.example.prography_quest.domain.room.domain.Status;
+import com.example.prography_quest.domain.room.domain.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class UpdateRoomRequest {
-    private Status status;
+    private RoomStatus status;
 }

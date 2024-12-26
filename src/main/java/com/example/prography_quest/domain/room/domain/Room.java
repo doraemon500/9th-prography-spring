@@ -29,7 +29,7 @@ public class Room {
     private Integer hostId;
 
     private Room_type roomType;
-    private Status status;
+    private RoomStatus status;
 
     @CreatedDate
     @Column(updatable = false)
@@ -41,7 +41,7 @@ public class Room {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Room(String title, User user, Status status, Room_type room_type) {
+    public Room(String title, User user, RoomStatus status, Room_type room_type) {
         this.hostId = user.getId();
         this.title = title;
         this.status = status;

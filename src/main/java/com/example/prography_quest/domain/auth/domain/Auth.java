@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Table(name = "auth")
 public class Auth {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auth_id")
     private Long id;
     private String Email;

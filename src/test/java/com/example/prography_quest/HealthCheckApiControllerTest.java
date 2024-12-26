@@ -1,5 +1,6 @@
 package com.example.prography_quest;
 
+import com.example.prography_quest.global.common.exception.ExceptionCode;
 import com.example.prography_quest.global.common.response.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,7 @@ public class HealthCheckApiControllerTest {
     @Test
     public void checkHealth() throws Exception {
         final String url = "/health";
-        ApiResponse<Void> response = new ApiResponse<Void>().ok();
+        ApiResponse<Void> response = new ApiResponse<Void>().ok(ExceptionCode.OK);
 
         final ResultActions resultActions = mockMvc.perform(get(url));
 
